@@ -1,0 +1,2 @@
+# magnuscourse
+Magnus' Course
