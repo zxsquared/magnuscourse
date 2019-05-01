@@ -1,2 +1,2 @@
 # magnuscourse
-Magnus' Course
+This is a test
