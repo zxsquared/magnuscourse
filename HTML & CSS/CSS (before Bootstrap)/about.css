@@ -1,0 +1,18 @@
+h1 {
+    color: rgba(0, 200,100, .8 );
+    /* border-color: purple;
+    border-width: 5px;
+    border-style: solid; */
+    border: 8px solid purple;
+} 
+
+h4 {
+    background: rgb(255, 100, 80);
+}
+
+body {
+    background: pink 
+    /*url(https://image.made-in-china.com/43f34j00wehtcVuPrAUd/Teak-Wood-Grain-Melamine-Paper-for-Laminated-Floor-Furniture-MDF-Board.jpg);
+   background-repeat: no-repeat;
+   background-size: cover; */
+}
