@@ -1,15 +1,29 @@
-function qOne(num) {
-if (num % 2 === 0){
-return (num + " is even")
+// function isEven(num) {
+// if (num % 2 === 0){
+// return true;
+// }
+// else {
+//     return false;
+// }
+// }
+
+function isEven(num) {
+return num % 2 === 0
 }
-else {
-    return (num + " is odd")
-}
+    
+function factorial(num) {
+    // define a result var
+    var result = 1;
+    // calculate factorial
+    for(var i = 2; i <= num; i++) {
+        result *= i; 
+    }
+    // return the result var
+    return result
 }
 
-qOne(4)
-qOne(21)
-qOne(68)
-qOne(333)
-
-console.log ("Second")
+function kebabtoSnake(str) {
+// IMPORTANT!!!
+var newStr = str.replace(/-/g , "_")
+return newStr;
+}
