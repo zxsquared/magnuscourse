@@ -2,14 +2,18 @@
 // // Put JS Code here
 // }, 500)
 
-var todos = [""]
+var todos = ["brbkr,gebj"]
 
 var input = prompt("What would you like to do?")
 
 
 while (input !== "quit") {
+
     if(input === "list"){
-        console.log(todos);
+        todos.forEach(function(todo){
+            console.log(todo);
+        });
+        
     }
     
     else if (input === "new") {
