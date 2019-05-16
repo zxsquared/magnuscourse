@@ -14,4 +14,4 @@ function myForEach(arr, func){
 
 var colors = ["red", "orange", "yellow"]
 
-myForEach(colors,)
+myForEach(colors)
