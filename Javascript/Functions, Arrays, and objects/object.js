@@ -16,3 +16,18 @@
 
 // Comapring arrays to objects
 // Arrays have a special order, while objects don't
+
+// You can nest objects into arrays (so that the objects have an order)
+
+var something = [
+    // Index 0
+    {
+        title:"Hi",
+        author:"Dummy"
+    },
+    // Index 1
+    {
+        title:"Hi",
+        author:"Dummy"
+    }
+]
