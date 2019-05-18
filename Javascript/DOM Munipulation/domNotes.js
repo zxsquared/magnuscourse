@@ -10,4 +10,4 @@
 // document.querySelector()
 // Selects first element
 // document.querySelectorAll()
-// Can still search up ID's using querySelectorAll 
+// Can still search up ID's using querySelectorAll() 
