@@ -1,2 +1,2 @@
 # magnuscourse
-This is a test
+In this organization, I am doing my course.
