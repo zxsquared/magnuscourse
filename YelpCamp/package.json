@@ -1,16 +1,15 @@
 {
-  "name": "moviesearchapp",
+  "name": "yelpcamp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "My YelpCamp Application",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Magnus Peterson-Munoz",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.2",
-    "express": "^4.17.1",
-    "request": "^2.88.0"
+    "express": "^4.17.1"
   }
 }
