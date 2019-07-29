@@ -1,21 +1,32 @@
-var express = require("express")
-var app = express()
-var bodyParser = require("body-parser")
-app.set("view engine", "ejs")
+var express = require("express"),
+app = express(),
+bodyParser = require("body-parser"), 
+mongooose = require("mongoose")
 
+mongooose.connect("mongodb://localhost/yelpcamp")
+
+app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: true}))
 
-var campgrounds = [
-    {name: "Salmon Arm", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Shuswap Lake", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Bragg Creek", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Salmon Arm", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Shuswap Lake", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Bragg Creek", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Salmon Arm", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Shuswap Lake", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-    {name: "Bragg Creek", image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"}
-]
+// Schema Setup
+var campgroundSchema = new mongooose.Schema({
+    name: String,
+    image: String
+})
+
+var Campground = mongooose.model("Campground", campgroundSchema)
+
+// Campground.create({name: "Bragg Creek", 
+// image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
+// function(err, campground){
+// if(err){
+//     console.log(err)
+// } else {
+//     console.log("Successfully created campground!")
+//     console.log(campground)
+// };
+// });
+
 
 app.get("/", function(req, res){
 res.render("landing")
@@ -24,18 +35,33 @@ res.render("landing")
 
 
 app.get("/campgrounds", function(req, res){
-  res.render("campground", {campgrounds:campgrounds})
+    // Get all campgrounds from DB
+    Campground.find({}, function(err, allcampgrounds){
+        if(err){
+            console.log(err)
+        } else {
+        res.render("campground", {campgrounds:allCampgrounds})
+        }
+    })
+    
     })
 
     app.post("/campgrounds", function(req, res){
         // get data from form
        var name = req.body.name
        var image = req.body.image
-       var newCampround = {name: name, image: image}
-       campgrounds.push(newCampround)
-        // add to campgrounds array
-        // redirect back to /campgrounds page
-        res.redirect("/campgrounds")
+       var newCampground = {name: name, image: image}
+      
+        // Create new campground and save to database
+        Campground.create(newCampground, function(err, newcampground){
+            if(err){
+                console.log(err)
+            } else {
+                // redirect back to /campgrounds page
+                res.redirect("/campgrounds")
+            }
+        })
+       
     })
 
 
