@@ -3,7 +3,7 @@ app = express(),
 bodyParser = require("body-parser"), 
 mongooose = require("mongoose")
 
-mongooose.connect("mongodb://localhost/yelpcamp")
+mongooose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true})
 
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: true}))
@@ -40,7 +40,7 @@ app.get("/campgrounds", function(req, res){
         if(err){
             console.log(err)
         } else {
-        res.render("campground", {campgrounds:allCampgrounds})
+        res.render("campground", {campgrounds:allcampgrounds})
         }
     })
     
