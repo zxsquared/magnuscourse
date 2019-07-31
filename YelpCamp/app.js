@@ -83,8 +83,6 @@ app.get("/campgrounds/:id", function(req, res){
         }
     })
     
-    
-    // res.send("You have entered into a zone that is yet to be made, but will be soon!")
 })
 
 app.listen(4005, function(){
