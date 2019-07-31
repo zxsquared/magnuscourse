@@ -17,17 +17,17 @@ var campgroundSchema = new mongooose.Schema({
 
 var Campground = mongooose.model("Campground", campgroundSchema)
 
-//  Campground.create({name: "Bragg Creek", 
-//  image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg", 
-//  description: "Test"},
-//  function(err, campground){
-//  if(err){
-//      console.log(err)
-//  } else {
-//      console.log("Successfully created campground!")
-//      console.log(campground)
-//  };
-//  });
+//   Campground.create({name: "Bragg Creek", 
+//   image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg", 
+//   description: "Hi, this is a test"},
+//   function(err, campground){
+//   if(err){
+//       console.log(err)
+//   } else {
+//       console.log("Successfully created campground!")
+//       console.log(campground)
+//   };
+//   });
 
 
 app.get("/", function(req, res){
@@ -52,7 +52,8 @@ app.get("/campgrounds", function(req, res){
         // get data from form
        var name = req.body.name
        var image = req.body.image
-       var newCampground = {name: name, image: image}
+       var description = req.body.description
+       var newCampground = {name: name, image: image, description: description}
       
         // Create new campground and save to database
         Campground.create(newCampground, function(err, newcampground){
@@ -73,8 +74,16 @@ app.get("/campgrounds", function(req, res){
 // SHOW - Shows more info about a specific campground
 app.get("/campgrounds/:id", function(req, res){
     // find campground with provided ID
-    // render show template with that ID
-    res.render("show")
+    Campground.findById(req.params.id, function(err, foundCamp){
+        if(err){
+            console.log(err)        
+        } else {
+            // render show template with that ID
+            res.render("show", {campground: foundCamp})
+        }
+    })
+    
+    
     // res.send("You have entered into a zone that is yet to be made, but will be soon!")
 })
 
