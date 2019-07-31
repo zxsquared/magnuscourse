@@ -11,21 +11,23 @@ app.use(bodyParser.urlencoded({extended: true}))
 // Schema Setup
 var campgroundSchema = new mongooose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 })
 
 var Campground = mongooose.model("Campground", campgroundSchema)
 
-// Campground.create({name: "Bragg Creek", 
-// image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg"},
-// function(err, campground){
-// if(err){
-//     console.log(err)
-// } else {
-//     console.log("Successfully created campground!")
-//     console.log(campground)
-// };
-// });
+//  Campground.create({name: "Bragg Creek", 
+//  image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg", 
+//  description: "Test"},
+//  function(err, campground){
+//  if(err){
+//      console.log(err)
+//  } else {
+//      console.log("Successfully created campground!")
+//      console.log(campground)
+//  };
+//  });
 
 
 app.get("/", function(req, res){
@@ -40,7 +42,7 @@ app.get("/campgrounds", function(req, res){
         if(err){
             console.log(err)
         } else {
-        res.render("campground", {campgrounds:allcampgrounds})
+        res.render("index", {campgrounds:allcampgrounds})
         }
     })
     
@@ -68,6 +70,13 @@ app.get("/campgrounds", function(req, res){
     app.get("/campgrounds/new", function(req, res){
         res.render("new")
     })
+// SHOW - Shows more info about a specific campground
+app.get("/campgrounds/:id", function(req, res){
+    // find campground with provided ID
+    // render show template with that ID
+    res.render("show")
+    // res.send("You have entered into a zone that is yet to be made, but will be soon!")
+})
 
 app.listen(4005, function(){
     console.log("YelpCamp site on PORT 4005")
