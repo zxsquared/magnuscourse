@@ -1,33 +1,16 @@
 var express = require("express"),
 app = express(),
 bodyParser = require("body-parser"), 
-mongooose = require("mongoose")
+mongoose = require("mongoose"),
+Campground = require("./models/campground"),
+seedDB = require("./seeds")
 
-mongooose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true})
+
+
+mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true})
 
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: true}))
-
-// Schema Setup
-var campgroundSchema = new mongooose.Schema({
-    name: String,
-    image: String,
-    description: String
-})
-
-var Campground = mongooose.model("Campground", campgroundSchema)
-
-//   Campground.create({name: "Bragg Creek", 
-//   image:"https://az837918.vo.msecnd.net/publishedimages/listings/4290/en-CA/images/1/red-deer-lions-campground-S-19.jpg", 
-//   description: "Hi, this is a test"},
-//   function(err, campground){
-//   if(err){
-//       console.log(err)
-//   } else {
-//       console.log("Successfully created campground!")
-//       console.log(campground)
-//   };
-//   });
 
 
 app.get("/", function(req, res){
@@ -42,8 +25,8 @@ app.get("/campgrounds", function(req, res){
         if(err){
             console.log(err)
         } else {
-        res.render("index", {campgrounds:allcampgrounds})
-        }
+        res.render("campgrounds/index", {campgrounds: allcampgrounds})   
+    }
     })
     
     })
@@ -69,21 +52,28 @@ app.get("/campgrounds", function(req, res){
 
 
     app.get("/campgrounds/new", function(req, res){
-        res.render("new")
+        res.render("campgrounds/new")
     })
 // SHOW - Shows more info about a specific campground
 app.get("/campgrounds/:id", function(req, res){
     // find campground with provided ID
-    Campground.findById(req.params.id, function(err, foundCamp){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCamp){
         if(err){
             console.log(err)        
         } else {
             // render show template with that ID
-            res.render("show", {campground: foundCamp})
+            res.render("campgrounds/show", {campground: foundCamp})
         }
     })
     
 })
+// =================
+// Comment Route
+// =================
+app.get("/campgrounds/:id/comments/new", function(req, res){
+     res.render("comments/new")
+})
+
 
 app.listen(4005, function(){
     console.log("YelpCamp site on PORT 4005")
