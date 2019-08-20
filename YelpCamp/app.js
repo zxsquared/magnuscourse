@@ -1,4 +1,5 @@
-var express          = require("express"),
+// To require everything
+var express        = require("express"),
 bodyParser         = require("body-parser"), 
 mongoose           = require("mongoose"),
 Campground         = require("./models/campground"),
@@ -42,6 +43,7 @@ app.get("/", function(req, res){
 res.render("landing")
 })
 
+// TO get server started
 app.listen(4005, function(){
     console.log("YelpCamp site on PORT 4005")
 })
