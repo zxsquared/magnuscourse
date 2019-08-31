@@ -10,6 +10,7 @@ Comment            = require("./models/comment"),
 commentRoutes      = require("./routes/comments"),
 campgroundRoutes   = require("./routes/campgrounds"),
 indexRoutes        = require("./routes/index"),
+methodOverride     = require("method-override"),
 app = express()
 
 
@@ -26,6 +27,8 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(methodOverride("_method"))
+
 passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())

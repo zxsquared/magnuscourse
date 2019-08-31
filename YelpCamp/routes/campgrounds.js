@@ -59,6 +59,13 @@ router.get("/:id", function(req, res){
     
 })
 
+// EDIT ROUTE
+router.get("/:id/edit", function(req, res){
+    Cam
+    res.render("campgrounds/edit", {campground: foundCampground})
+})
+// UPDATE ROUTE
+
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next()
