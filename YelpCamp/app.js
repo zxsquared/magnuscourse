@@ -28,6 +28,7 @@ app.use(require("express-session")({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride("_method"))
+mongoose.set('useFindAndModify', false);
 
 passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
