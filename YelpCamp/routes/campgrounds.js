@@ -61,7 +61,7 @@ router.get("/:id", function(req, res){
 
 // EDIT ROUTE
 router.get("/:id/edit", checkCampgroundOwnership, function(req, res){    
-        Campground.findById(req.params.id, function(foundCampground){
+        Campground.findById(req.params.id, function(err, foundCampground){
         res.render("campgrounds/edit", {campground: foundCampground})
     })
 })
@@ -103,11 +103,11 @@ function checkCampgroundOwnership(req, res, next){
         Campground.findById(req.params.id, function(err, foundCampground){
             if(err){
                 res.redirect("back")
+             
             } else {
                 // does user own campground?
-                console.log()
                   if(foundCampground.author.id.equals(req.user._id)){
-                  next()
+                next()
                  } else {
                     res.redirect("back")
                  }
